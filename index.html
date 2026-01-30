@@ -1,0 +1,42 @@
+<script>
+const endpoint = "YOUR_ENDPOINT_HERE";
+const apiKey = "YOUR_API_KEY_HERE";
+const indexName = "employee-index";
+
+async function search() {
+  const query = document.getElementById("query").value;
+
+  const url = `${endpoint}/indexes/${indexName}/docs?api-version=2023-07-01-Preview&search=${query}`;
+
+  const response = await fetch(url, {
+    headers: {
+      "Content-Type": "application/json",
+      "api-key": apiKey
+    }
+  });
+
+  const data = await response.json();
+
+  let output = "";
+
+  if (!data.value || data.value.length === 0) {
+    output = "<p>No results found.</p>";
+  } else {
+    data.value.forEach(record => {
+      if (record.content) {
+        record.content.forEach(item => {
+          output += `
+            <div class="result">
+              <div class="title">${item.title}</div>
+              <div class="category">${item.category}</div>
+              <p>${item.content}</p>
+            </div>
+          `;
+        });
+      }
+    });
+  }
+
+  document.getElementById("results").innerHTML = output;
+}
+</script>
