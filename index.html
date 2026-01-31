@@ -1,42 +1,40 @@
-<script>
-const endpoint = "YOUR_ENDPOINT_HERE";
-const apiKey = "YOUR_API_KEY_HERE";
-const indexName = "employee-index";
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Policy Search</title>
+</head>
+<body>
+  <h2>Employee Policy Search</h2>
 
-async function search() {
-  const query = document.getElementById("query").value;
+  <input type="text" id="searchBox" placeholder="Search policy..." />
+  <button onclick="search()">Search</button>
 
-  const url = `${endpoint}/indexes/${indexName}/docs?api-version=2023-07-01-Preview&search=${query}`;
+  <div id="results"></div>
 
-  const response = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      "api-key": apiKey
-    }
-  });
+  <script>
+    const serviceName = "intelligent-search-app";
+    const indexName = "employee-index";
+    const apiKey = "JTH2ENdPGtr1TbBg2hbN6Ts2nF8fA5wG8IMZhakeOmAzSeCILqiC";
 
-  const data = await response.json();
+    function search() {
+      const query = document.getElementById("searchBox").value;
+      const url =
+        `https://${serviceName}.search.windows.net/indexes/${indexName}/docs?api-version=2023-07-01&search=${query}`;
 
-  let output = "";
-
-  if (!data.value || data.value.length === 0) {
-    output = "<p>No results found.</p>";
-  } else {
-    data.value.forEach(record => {
-      if (record.content) {
-        record.content.forEach(item => {
-          output += `
-            <div class="result">
-              <div class="title">${item.title}</div>
-              <div class="category">${item.category}</div>
-              <p>${item.content}</p>
-            </div>
-          `;
+      fetch(url, {
+        headers: {
+          "api-key": apiKey
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        let html = "";
+        data.value.forEach(item => {
+          html += `<p><b>${item.title}</b><br>${item.content}<br><i>${item.category}</i></p><hr>`;
         });
-      }
-    });
-  }
-
-  document.getElementById("results").innerHTML = output;
-}
-</script>
+        document.getElementById("results").innerHTML = html;
+      });
+    }
+  </script>
+</body>
+</html>
