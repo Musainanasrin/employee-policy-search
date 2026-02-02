@@ -5,7 +5,7 @@ The **Employee Policy Search System** is a cloud-based application developed usi
 
 This project was developed as part of an **Industry Internship Program at Tata Consultancy Services (TCS)*
 
-## 🏢 Organization
+## Organization
 **Tata Consultancy Services (TCS)**
 
 ##  Student Details
@@ -17,7 +17,7 @@ This project was developed as part of an **Industry Internship Program at Tata C
 - **Internship Duration:** 12/12/2025 – 11/02/2026  
 
 
-## 🎯 Objectives
+##  Objectives
 - Provide fast access to employee policy documents  
 - Reduce dependency on HR for policy-related queries  
 - Implement a cloud-based intelligent search system  
